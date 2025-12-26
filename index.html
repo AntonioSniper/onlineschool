@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Онлайн-Школа - Обучение будущего</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduFuture</span>
+            </a>
+            <div class="nav-links">
+                <a href="#courses" class="nav-link">Курсы</a>
+                <a href="#about" class="nav-link">О нас</a>
+                <a href="#contact" class="nav-link">Контакты</a>
+                <div class="auth-buttons">
+                    <button onclick="location.href='admin.html'" class="btn btn-outline">
+                        <i class="fas fa-user-shield"></i> Админ
+                    </button>
+                    <button onclick="location.href='student.html'" class="btn btn-primary">
+                        <i class="fas fa-user-graduate"></i> Студент
+                    </button>
+                </div>
+            </div>
+            <button class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Герой секция -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Образование, которое меняет жизнь</h1>
+                <p class="hero-subtitle">Онлайн-курсы от лучших преподавателей. Начни свой путь к успеху сегодня!</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>5,000+</h3>
+                            <p>Студентов</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-book-open"></i>
+                        <div>
+                            <h3>50+</h3>
+                            <p>Курсов</p>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-certificate"></i>
+                        <div>
+                            <h3>98%</h3>
+                            <p>Успешных выпускников</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="location.href='#courses'" class="btn btn-primary btn-lg">
+                    <i class="fas fa-play-circle"></i> Начать обучение
+                </button>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Студенты">
+            </div>
+        </div>
+    </section>
+
+    <!-- Популярные курсы -->
+    <section id="courses" class="courses-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Популярные курсы</h2>
+                <p>Выберите курс, который соответствует вашим целям</p>
+            </div>
+            <div class="courses-grid" id="coursesList">
+                <!-- Курсы загружаются через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Почему выбирают нас?</h2>
+                    <div class="features">
+                        <div class="feature">
+                            <i class="fas fa-video"></i>
+                            <h3>Живые занятия</h3>
+                            <p>Интерактивные уроки с обратной связью</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-certificate"></i>
+                            <h3>Сертификаты</h3>
+                            <p>Официальные сертификаты по окончании</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-headset"></i>
+                            <h3>Поддержка 24/7</h3>
+                            <p>Помощь кураторов в любое время</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-briefcase"></i>
+                            <h3>Карьера</h3>
+                            <p>Помощь в трудоустройстве</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Команда">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h2>Свяжитесь с нами</h2>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@edufuture.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Телефон</h4>
+                            <p>+7 (999) 123-45-67</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>Москва, ул. Образовательная, 15</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <input type="text" placeholder="Ваше имя" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Сообщение" rows="4" required></textarea>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i> Отправить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>EduFuture</span>
+                </div>
+                <p>© 2024 Онлайн-Школа EduFuture. Все права защищены.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Загрузка курсов
+        document.addEventListener('DOMContentLoaded', function() {
+            const courses = JSON.parse(localStorage.getItem('courses')) || getDefaultCourses();
+            displayCourses(courses.slice(0, 3));
+            
+            // Инициализация данных
+            initializeData();
+        });
+
+        function getDefaultCourses() {
+            return [
+                {
+                    id: 1,
+                    name: "Веб-разработка с нуля",
+                    description: "Научись создавать современные веб-сайты",
+                    hours: 120,
+                    price: 14900,
+                    start_date: "15-01-2024",
+                    end_date: "15-04-2024",
+                    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 2,
+                    name: "Data Science",
+                    description: "Анализ данных и машинное обучение",
+                    hours: 160,
+                    price: 19900,
+                    start_date: "20-01-2024",
+                    end_date: "20-05-2024",
+                    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                },
+                {
+                    id: 3,
+                    name: "Дизайн интерфейсов",
+                    description: "Создание UI/UX дизайна",
+                    hours: 80,
+                    price: 12900,
+                    start_date: "10-01-2024",
+                    end_date: "10-03-2024",
+                    image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                }
+            ];
+        }
+
+        function displayCourses(courses) {
+            const container = document.getElementById('coursesList');
+            if (!container) return;
+            
+            container.innerHTML = courses.map(course => `
+                <div class="course-card">
+                    <div class="course-image">
+                        <img src="${course.image}" alt="${course.name}">
+                        <span class="course-price">${course.price.toLocaleString()} ₽</span>
+                    </div>
+                    <div class="course-content">
+                        <h3>${course.name}</h3>
+                        <p>${course.description}</p>
+                        <div class="course-meta">
+                            <span><i class="far fa-clock"></i> ${course.hours} часов</span>
+                            <span><i class="far fa-calendar"></i> ${course.start_date} - ${course.end_date}</span>
+                        </div>
+                        <div class="course-actions">
+                            <button class="btn btn-outline" onclick="viewCourse(${course.id})">
+                                <i class="fas fa-info-circle"></i> Подробнее
+                            </button>
+                            <button class="btn btn-primary" onclick="enrollCourse(${course.id})">
+                                <i class="fas fa-shopping-cart"></i> Записаться
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function initializeData() {
+            if (!localStorage.getItem('courses')) {
+                localStorage.setItem('courses', JSON.stringify(getDefaultCourses()));
+            }
+            if (!localStorage.getItem('admin')) {
+                localStorage.setItem('admin', JSON.stringify({
+                    email: "admin@edu.com",
+                    password: "course2025"
+                }));
+            }
+            if (!localStorage.getItem('students')) {
+                localStorage.setItem('students', JSON.stringify([]));
+            }
+            if (!localStorage.getItem('orders')) {
+                localStorage.setItem('orders', JSON.stringify([]));
+            }
+        }
+
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        }
+
+        function viewCourse(id) {
+            alert('Подробная информация о курсе ID: ' + id);
+        }
+
+        function enrollCourse(id) {
+            location.href = 'student.html?course=' + id;
+        }
+    </script>
+</body>
+</html>

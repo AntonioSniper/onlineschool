@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет студента - Онлайн-Школа</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/student.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="student-container" id="studentContainer">
+        <!-- Логин/регистрация -->
+        <div class="auth-container" id="authContainer">
+            <div class="auth-tabs">
+                <button class="tab-btn active" onclick="showTab('login')">Вход</button>
+                <button class="tab-btn" onclick="showTab('register')">Регистрация</button>
+            </div>
+            
+            <!-- Форма входа -->
+            <div class="auth-form active" id="loginForm">
+                <div class="form-header">
+                    <h3><i class="fas fa-sign-in-alt"></i> Вход для студентов</h3>
+                    <p>Войдите в свой личный кабинет</p>
+                </div>
+                <form id="studentLoginForm">
+                    <div class="form-group">
+                        <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
+                        <input type="email" id="loginEmail" placeholder="student@example.com" required>
+                        <div class="error-message" id="loginEmailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword"><i class="fas fa-lock"></i> Пароль</label>
+                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        <div class="error-message" id="loginPasswordError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                </form>
+                <div class="form-footer">
+                    <p>Нет аккаунта? <a href="#" onclick="showTab('register')">Зарегистрируйтесь</a></p>
+                </div>
+            </div>
+            
+            <!-- Форма регистрации -->
+            <div class="auth-form" id="registerForm">
+                <div class="form-header">
+                    <h3><i class="fas fa-user-plus"></i> Регистрация</h3>
+                    <p>Создайте аккаунт студента</p>
+                </div>
+                <form id="studentRegisterForm">
+                    <div class="form-group">
+                        <label for="regName"><i class="fas fa-user"></i> Имя</label>
+                        <input type="text" id="regName" placeholder="Иван Иванов">
+                    </div>
+                    <div class="form-group">
+                        <label for="regEmail"><i class="fas fa-envelope"></i> Email *</label>
+                        <input type="email" id="regEmail" placeholder="student@example.com" required>
+                        <div class="error-message" id="regEmailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword"><i class="fas fa-lock"></i> Пароль *</label>
+                        <input type="password" id="regPassword" placeholder="••••••••" required>
+                        <div class="error-message" id="regPasswordError"></div>
+                        <small class="password-hint">
+                            Пароль должен содержать: минимум 3 символа, заглавные и строчные буквы, цифры, спецсимволы (_#!%)
+                        </small>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-user-plus"></i> Зарегистрироваться
+                    </button>
+                </form>
+                <div class="form-footer">
+                    <p>Уже есть аккаунт? <a href="#" onclick="showTab('login')">Войдите</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Личный кабинет -->
+        <div class="student-dashboard" id="studentDashboard" style="display: none;">
+            <!-- Шапка -->
+            <header class="student-header">
+                <div class="container">
+                    <div class="header-content">
+                        <div class="logo">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>EduFuture Student</span>
+                        </div>
+                        <div class="student-info">
+                            <div class="avatar">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="student-details">
+                                <h4 id="studentName">Студент</h4>
+                                <p id="studentEmail">email@example.com</p>
+                            </div>
+                            <button onclick="logoutStudent()" class="btn btn-outline">
+                                <i class="fas fa-sign-out-alt"></i> Выйти
+                            </button>
+                        </div>
+                    </div>
+                    <nav class="student-nav">
+                        <button class="nav-btn active" onclick="showStudentTab('courses')">
+                            <i class="fas fa-book"></i> Мои курсы
+                        </button>
+                        <button class="nav-btn" onclick="showStudentTab('all-courses')">
+                            <i class="fas fa-search"></i> Все курсы
+                        </button>
+                        <button class="nav-btn" onclick="showStudentTab('certificates')">
+                            <i class="fas fa-certificate"></i> Сертификаты
+                        </button>
+                        <button class="nav-btn" onclick="showStudentTab('profile')">
+                            <i class="fas fa-user-cog"></i> Профиль
+                        </button>
+                    </nav>
+                </div>
+            </header>
+            
+            <!-- Основной контент -->
+            <main class="student-main">
+                <div class="container">
+                    <!-- Мои курсы -->
+                    <section id="my-courses" class="student-section active">
+                        <h2><i class="fas fa-book-open"></i> Мои курсы</h2>
+                        <div class="my-courses-grid" id="myCoursesGrid">
+                            <!-- Загружаются через JS -->
+                        </div>
+                    </section>
+                    
+                    <!-- Все курсы -->
+                    <section id="all-courses" class="student-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-search"></i> Все курсы</h2>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="courseSearch" placeholder="Поиск курсов..." 
+                                       oninput="searchCourses()">
+                            </div>
+                        </div>
+                        <div class="courses-grid" id="allCoursesGrid">
+                            <!-- Загружаются через JS -->
+                        </div>
+                    </section>
+                    
+                    <!-- Сертификаты -->
+                    <section id="certificates" class="student-section">
+                        <h2><i class="fas fa-certificate"></i> Мои сертификаты</h2>
+                        <div class="certificates-grid" id="studentCertificates">
+                            <!-- Загружаются через JS -->
+                        </div>
+                    </section>
+                    
+                    <!-- Профиль -->
+                    <section id="profile" class="student-section">
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="profile-avatar">
+                                    <i class="fas fa-user-circle"></i>
+                                </div>
+                                <div class="profile-info">
+                                    <h3 id="profileName">Иван Иванов</h3>
+                                    <p id="profileEmail">ivan@example.com</p>
+                                    <p class="profile-joined">
+                                        <i class="far fa-calendar-alt"></i> Зарегистрирован: 
+                                        <span id="profileJoinDate">01.01.2024</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="profile-stats">
+                                <div class="stat-item">
+                                    <i class="fas fa-book"></i>
+                                    <div>
+                                        <h4 id="profileCourses">0</h4>
+                                        <p>Курсов</p>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-certificate"></i>
+                                    <div>
+                                        <h4 id="profileCerts">0</h4>
+                                        <p>Сертификатов</p>
+                                    </div>
+                                </div>
+                                <div class="stat-item">
+                                    <i class="fas fa-clock"></i>
+                                    <div>
+                                        <h4 id="profileHours">0</h4>
+                                        <p>Часов обучения</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Модальное окно оплаты -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-credit-card"></i> Оплата курса</h3>
+                <button onclick="closePaymentModal()" class="close-btn">&times;</button>
+            </div>
+            <div class="payment-content">
+                <div class="course-summary" id="paymentCourse">
+                    <!-- Загружается через JS -->
+                </div>
+                <div class="payment-instructions">
+                    <h4><i class="fas fa-info-circle"></i> Тестовая оплата</h4>
+                    <p>Для успешной оплаты используйте карту: <code>8888 0000 0000 1111</code></p>
+                    <p>Для неудачной оплаты используйте карту: <code>8888 0000 0000 2222</code></p>
+                </div>
+                <form id="paymentForm" class="payment-form">
+                    <div class="form-group">
+                        <label for="cardNumber"><i class="far fa-credit-card"></i> Номер карты</label>
+                        <input type="text" id="cardNumber" placeholder="8888 0000 0000 1111" 
+                               pattern="\d{4} \d{4} \d{4} \d{4}" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cardExpiry"><i class="far fa-calendar-alt"></i> Срок действия</label>
+                            <input type="text" id="cardExpiry" placeholder="ММ/ГГ" pattern="\d{2}/\d{2}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCVC"><i class="fas fa-lock"></i> CVC</label>
+                            <input type="text" id="cardCVC" placeholder="123" pattern="\d{3}" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-lock"></i> Оплатить
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/student.js"></script>
+</body>
+</html>

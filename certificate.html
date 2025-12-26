@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сертификат - Онлайн-Школа</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .certificate-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .certificate-wrapper {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            max-width: 1000px;
+            width: 100%;
+        }
+        
+        .certificate-header {
+            background: linear-gradient(135deg, #4361ee, #3a0ca3);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .certificate-header::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+        
+        .header-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .header-title h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .header-title p {
+            font-size: 18px;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+        
+        .certificate-body {
+            padding: 60px 40px;
+            position: relative;
+            background: #fff;
+        }
+        
+        .certificate-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3, #4361ee);
+        }
+        
+        .certificate-content {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .certificate-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .certificate-subtitle {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 40px;
+        }
+        
+        .awarded-to {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .student-name {
+            font-size: 36px;
+            font-weight: 700;
+            color: #4361ee;
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-top: 2px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .certificate-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f7fafc;
+            border-radius: 15px;
+            text-align: left;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .info-item i {
+            font-size: 24px;
+            color: #4361ee;
+            width: 40px;
+        }
+        
+        .info-item h4 {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 5px;
+        }
+        
+        .info-item p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .certificate-footer {
+            border-top: 3px double #e2e8f0;
+            padding-top: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .certificate-number {
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            background: #f7fafc;
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+        
+        .signatures {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .signature {
+            padding: 20px;
+        }
+        
+        .signature-line {
+            width: 200px;
+            height: 1px;
+            background: #4a5568;
+            margin: 40px auto 10px;
+        }
+        
+        .signature-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .signature-title {
+            font-size: 14px;
+            color: #718096;
+        }
+        
+        .certificate-actions {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 120px;
+            color: rgba(67, 97, 238, 0.1);
+            font-weight: 700;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .verification-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+        }
+        
+        @media print {
+            .certificate-container {
+                background: white;
+                padding: 0;
+            }
+            
+            .certificate-wrapper {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .certificate-actions {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .certificate-header {
+                padding: 30px 20px;
+            }
+            
+            .header-title h1 {
+                font-size: 28px;
+            }
+            
+            .certificate-body {
+                padding: 40px 20px;
+            }
+            
+            .certificate-title {
+                font-size: 24px;
+            }
+            
+            .student-name {
+                font-size: 28px;
+            }
+            
+            .course-info {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .watermark {
+                font-size: 60px;
+            }
+            
+            .signatures {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-container">
+        <div class="certificate-wrapper">
+            <!-- Заголовок сертификата -->
+            <div class="certificate-header">
+                <div class="header-logo">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="header-title">
+                    <h1>СЕРТИФИКАТ</h1>
+                    <p>ОБ ОКОНЧАНИИ КУРСА</p>
+                </div>
+            </div>
+            
+            <!-- Тело сертификата -->
+            <div class="certificate-body">
+                <!-- Водяной знак -->
+                <div class="watermark" id="watermark">
+                    EDUFUTURE ONLINE SCHOOL
+                </div>
+                
+                <!-- Знак проверки -->
+                <div class="verification-badge" id="verificationBadge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Действителен</span>
+                </div>
+                
+                <!-- Основной контент -->
+                <div class="certificate-content">
+                    <h2 class="certificate-title" id="courseTitle">Название курса</h2>
+                    <p class="certificate-subtitle">Настоящим удостоверяется, что</p>
+                    
+                    <div class="awarded-to">присуждено</div>
+                    <div class="student-name" id="studentName">Иван Иванов</div>
+                    
+                    <p class="certificate-text" id="certificateText">
+                        успешно завершил(а) курс обучения и продемонстрировал(а) необходимые знания и навыки
+                    </p>
+                </div>
+                
+                <!-- Информация о курсе -->
+                <div class="course-info" id="courseInfo">
+                    <!-- Загружается через JS -->
+                </div>
+                
+                <!-- Подписи -->
+                <div class="certificate-footer">
+                    <div class="certificate-number" id="certificateNumber">
+                        № SF-2024-001234
+                    </div>
+                    
+                    <div class="signatures">
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Александр Петров</div>
+                            <div class="signature-title">Директор Онлайн-Школы</div>
+                        </div>
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <div class="signature-name">Мария Сидорова</div>
+                            <div class="signature-title">Главный методист</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Кнопки действий -->
+            <div class="certificate-actions">
+                <button onclick="printCertificate()" class="btn btn-primary">
+                    <i class="fas fa-print"></i> Печать
+                </button>
+                <button onclick="verifyCertificate()" class="btn btn-outline">
+                    <i class="fas fa-check-circle"></i> Проверить
+                </button>
+                <button onclick="window.close()" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Закрыть
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Получение параметров из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const certificateNumber = urlParams.get('number');
+        const orderId = urlParams.get('order');
+        const studentId = urlParams.get('student');
+        const printMode = urlParams.get('print') === 'true';
+        
+        // Загрузка данных
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCertificateData();
+            
+            // Автоматическая печать если нужно
+            if (printMode) {
+                setTimeout(() => {
+                    window.print();
+                }, 1000);
+            }
+        });
+        
+        function loadCertificateData() {
+            // Загрузка заказа
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            let order;
+            
+            if (orderId) {
+                order = orders.find(o => o.id === parseInt(orderId));
+            } else if (certificateNumber) {
+                order = orders.find(o => o.certificate_number === certificateNumber);
+            }
+            
+            if (!order) {
+                showDefaultData();
+                return;
+            }
+            
+            // Загрузка студента
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            const student = students.find(s => s.id === order.user_id);
+            
+            // Загрузка курса
+            const courses = JSON.parse(localStorage.getItem('courses')) || [];
+            const course = courses.find(c => c.id === order.course_id);
+            
+            // Обновление данных на странице
+            if (student) {
+                document.getElementById('studentName').textContent = student.name;
+            }
+            
+            if (course) {
+                document.getElementById('courseTitle').textContent = course.name;
+                document.getElementById('certificateText').textContent = 
+                    `успешно завершил(а) курс "${course.name}" и продемонстрировал(а) необходимые знания и навыки`;
+                
+                // Обновление информации о курсе
+                document.getElementById('courseInfo').innerHTML = `
+                    <div class="info-item">
+                        <i class="fas fa-book"></i>
+                        <div>
+                            <h4>Курс</h4>
+                            <p>${course.name}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="far fa-clock"></i>
+                        <div>
+                            <h4>Продолжительность</h4>
+                            <p>${course.hours} академических часов</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="far fa-calendar-alt"></i>
+                        <div>
+                            <h4>Период обучения</h4>
+                            <p>${course.start_date} - ${course.end_date}</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-award"></i>
+                        <div>
+                            <h4>Дата выдачи</h4>
+                            <p>${new Date(order.enrolled_at).toLocaleDateString('ru-RU')}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Обновление номера сертификата
+            if (order.certificate_number) {
+                document.getElementById('certificateNumber').textContent = 
+                    `№ ${order.certificate_number}`;
+                document.getElementById('watermark').textContent = order.certificate_number;
+                
+                // Проверка действительности
+                const lastDigit = order.certificate_number.slice(-1);
+                const isValid = lastDigit === '1';
+                
+                const badge = document.getElementById('verificationBadge');
+                if (isValid) {
+                    badge.innerHTML = '<i class="fas fa-check-circle"></i><span>Действителен</span>';
+                    badge.style.background = '#10b981';
+                } else {
+                    badge.innerHTML = '<i class="fas fa-exclamation-circle"></i><span>Недействителен</span>';
+                    badge.style.background = '#ef4444';
+                }
+            }
+        }
+        
+        function showDefaultData() {
+            // Данные по умолчанию
+            document.getElementById('studentName').textContent = 'Иван Иванов';
+            document.getElementById('courseTitle').textContent = 'Веб-разработка с нуля';
+            document.getElementById('certificateNumber').textContent = '№ SF-2024-001234';
+            
+            document.getElementById('courseInfo').innerHTML = `
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <div>
+                        <h4>Курс</h4>
+                        <p>Веб-разработка с нуля</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="far fa-clock"></i>
+                    <div>
+                        <h4>Продолжительность</h4>
+                        <p>120 академических часов</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <div>
+                        <h4>Период обучения</h4>
+                        <p>15.01.2024 - 15.04.2024</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-award"></i>
+                    <div>
+                        <h4>Дата выдачи</h4>
+                        <p>${new Date().toLocaleDateString('ru-RU')}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function printCertificate() {
+            window.print();
+        }
+        
+        function verifyCertificate() {
+            const certificateNumber = document.getElementById('certificateNumber').textContent.replace('№ ', '');
+            const lastDigit = certificateNumber.slice(-1);
+            
+            if (lastDigit === '1') {
+                alert('✅ Сертификат действителен!');
+            } else {
+                alert('❌ Сертификат недействителен!');
+            }
+        }
+    </script>
+</body>
+</html>

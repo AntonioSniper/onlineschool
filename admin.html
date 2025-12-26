@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Онлайн-Школа</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="admin-container" id="adminContainer">
+        <!-- Логин форма -->
+        <div class="login-container" id="loginContainer">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-user-shield"></i>
+                    <h2>Администратор</h2>
+                    <p>Войдите в систему управления</p>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input type="email" id="email" placeholder="admin@edu.com" required>
+                        <div class="error-message" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fas fa-lock"></i> Пароль
+                        </label>
+                        <input type="password" id="password" placeholder="••••••••" required>
+                        <div class="error-message" id="passwordError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                </form>
+                <div class="login-footer">
+                    <p>Тестовые данные: admin@edu.com / course2025</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основной интерфейс -->
+        <div class="admin-main" id="adminMain" style="display: none;">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>EduFuture Admin</h3>
+                </div>
+                <nav class="sidebar-nav">
+                    <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Дашборд</span>
+                    </a>
+                    <a href="#courses" class="nav-item" onclick="showSection('courses')">
+                        <i class="fas fa-book"></i>
+                        <span>Курсы</span>
+                    </a>
+                    <a href="#lessons" class="nav-item" onclick="showSection('lessons')">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Уроки</span>
+                    </a>
+                    <a href="#students" class="nav-item" onclick="showSection('students')">
+                        <i class="fas fa-users"></i>
+                        <span>Студенты</span>
+                    </a>
+                    <a href="#certificates" class="nav-item" onclick="showSection('certificates')">
+                        <i class="fas fa-certificate"></i>
+                        <span>Сертификаты</span>
+                    </a>
+                </nav>
+                <div class="sidebar-footer">
+                    <button onclick="logout()" class="btn btn-outline btn-block">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Основной контент -->
+            <main class="admin-content">
+                <!-- Дашборд -->
+                <section id="dashboard" class="section active">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tachometer-alt"></i> Дашборд</h2>
+                        <p>Обзор системы онлайн-обучения</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #4361ee20;">
+                                <i class="fas fa-book" style="color: #4361ee;"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalCourses">0</h3>
+                                <p>Всего курсов</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #4cc9f020;">
+                                <i class="fas fa-users" style="color: #4cc9f0;"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalStudents">0</h3>
+                                <p>Студентов</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #f7258520;">
+                                <i class="fas fa-shopping-cart" style="color: #f72585;"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalOrders">0</h3>
+                                <p>Записей на курсы</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: #f8961e20;">
+                                <i class="fas fa-certificate" style="color: #f8961e;"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="totalCertificates">0</h3>
+                                <p>Сертификатов</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-chart-line"></i> Активность</h3>
+                            <canvas id="activityChart" width="400" height="200"></canvas>
+                        </div>
+                        <div class="dashboard-card">
+                            <h3><i class="fas fa-clock"></i> Последние записи</h3>
+                            <div class="recent-orders" id="recentOrders">
+                                <!-- Загружаются через JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Управление курсами -->
+                <section id="courses" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-book"></i> Управление курсами</h2>
+                        <button onclick="showCourseForm()" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Добавить курс
+                        </button>
+                    </div>
+
+                    <div class="courses-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Изображение</th>
+                                    <th>Название</th>
+                                    <th>Продолжительность</th>
+                                    <th>Цена</th>
+                                    <th>Даты</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="coursesTable">
+                                <!-- Загружаются через JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Управление уроками -->
+                <section id="lessons" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chalkboard-teacher"></i> Управление уроками</h2>
+                        <div class="filter-group">
+                            <select id="courseFilter" class="form-select" onchange="filterLessons()">
+                                <option value="">Все курсы</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="lessons-grid" id="lessonsGrid">
+                        <!-- Уроки загружаются через JS -->
+                    </div>
+                </section>
+
+                <!-- Управление студентами -->
+                <section id="students" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-users"></i> Управление студентами</h2>
+                        <div class="filter-group">
+                            <select id="studentCourseFilter" class="form-select" onchange="filterStudents()">
+                                <option value="">Все курсы</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="students-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Студент</th>
+                                    <th>Email</th>
+                                    <th>Курс</th>
+                                    <th>Дата записи</th>
+                                    <th>Статус оплаты</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTable">
+                                <!-- Студенты загружаются через JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Управление сертификатами -->
+                <section id="certificates" class="section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-certificate"></i> Управление сертификатами</h2>
+                    </div>
+
+                    <div class="certificates-list" id="certificatesList">
+                        <!-- Сертификаты загружаются через JS -->
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Модальное окно для курса -->
+        <div class="modal" id="courseModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-book"></i> <span id="modalTitle">Новый курс</span></h3>
+                    <button onclick="closeModal()" class="close-btn">&times;</button>
+                </div>
+                <form id="courseForm" class="modal-form">
+                    <input type="hidden" id="courseId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="courseName"><i class="fas fa-heading"></i> Название курса *</label>
+                            <input type="text" id="courseName" maxlength="30" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseHours"><i class="far fa-clock"></i> Продолжительность (часы) *</label>
+                            <input type="number" id="courseHours" min="1" max="10" required>
+                            <div class="error-message" id="hoursError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="courseDescription"><i class="fas fa-align-left"></i> Описание</label>
+                        <textarea id="courseDescription" maxlength="100" rows="3"></textarea>
+                        <div class="error-message" id="descError"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="coursePrice"><i class="fas fa-ruble-sign"></i> Цена *</label>
+                            <input type="number" id="coursePrice" min="100" step="0.01" required>
+                            <div class="error-message" id="priceError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="courseImage"><i class="fas fa-image"></i> Обложка *</label>
+                            <input type="file" id="courseImage" accept="image/jpeg,image/jpg" required>
+                            <div class="error-message" id="imageError"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="startDate"><i class="far fa-calendar-alt"></i> Дата начала *</label>
+                            <input type="text" id="startDate" placeholder="дд-мм-гггг" pattern="\d{2}-\d{2}-\d{4}" required>
+                            <div class="error-message" id="startDateError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate"><i class="far fa-calendar-alt"></i> Дата окончания *</label>
+                            <input type="text" id="endDate" placeholder="дд-мм-гггг" pattern="\d{2}-\d{2}-\d{4}" required>
+                            <div class="error-message" id="endDateError"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeModal()" class="btn btn-outline">Отмена</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Модальное окно для урока -->
+        <div class="modal" id="lessonModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-chalkboard-teacher"></i> <span id="lessonModalTitle">Новый урок</span></h3>
+                    <button onclick="closeLessonModal()" class="close-btn">&times;</button>
+                </div>
+                <form id="lessonForm" class="modal-form">
+                    <input type="hidden" id="lessonId">
+                    <input type="hidden" id="lessonCourseId">
+                    
+                    <div class="form-group">
+                        <label for="lessonTitle"><i class="fas fa-heading"></i> Заголовок *</label>
+                        <input type="text" id="lessonTitle" maxlength="50" required>
+                        <div class="error-message" id="lessonTitleError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lessonContent"><i class="fas fa-align-left"></i> Содержание *</label>
+                        <textarea id="lessonContent" rows="4" required></textarea>
+                        <div class="error-message" id="lessonContentError"></div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lessonVideo"><i class="fas fa-video"></i> Ссылка на видео</label>
+                            <input type="url" id="lessonVideo" placeholder="https://super-tube.cc/video/v23189">
+                            <div class="error-message" id="lessonVideoError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lessonDuration"><i class="far fa-clock"></i> Длительность (часы) *</label>
+                            <input type="number" id="lessonDuration" min="1" max="4" required>
+                            <div class="error-message" id="lessonDurationError"></div>
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" onclick="closeLessonModal()" class="btn btn-outline">Отмена</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Сохранить
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
